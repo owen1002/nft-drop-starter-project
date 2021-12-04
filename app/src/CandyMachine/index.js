@@ -84,6 +84,7 @@ const CandyMachine = ({ walletAddress }) => {
       );
       
       if (data.length !== 0) {
+        let mintSet = new Set();
         for (const mint of data) {
           // Get URI
           const response = await fetch(mint.data.uri);
@@ -91,8 +92,9 @@ const CandyMachine = ({ walletAddress }) => {
           console.log("Past Minted NFT", mint)
       
           // Get image URI
-          setMints((prevState) => [...new Set([...prevState, parse.image])]);
+          mintSet.add(parse.image)
         }
+        setMints([...mintSet]);
       }
       setIsLoadingMints(false);
     };
